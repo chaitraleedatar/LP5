@@ -1,0 +1,108 @@
+Assignment No: - DL-Group1-1
+
+TITLE	Linear regression by using Deep Neural network
+PROBLEM STATEMENT
+/DEFINITION	Implement Boston housing price prediction problem by Linear regression using Deep Neural network. Use Boston House price prediction dataset.
+OBJECTIVE	To build a regression model to predict the price of houses.
+OUTCOME	To understand the exploratory data analysis,split the training and testing data, Model Evaluation and Prediction by the linear regression on the Boston housing dataset.
+S/W PACKAGES AND HARDWARE/ APPARATUS USED	Jupyter notebook IDE, python3
+PC with the configuration as Latest Version of 64 bit Operating
+Systems, Open Source Fedora-GHz. 8 G.B. RAM, 500 G.B. HDD, 15"Color Monitor, Keyboard, Mouse
+REFERENCES	1.	https://studygyaan.com/data-science-ml/linear-regression- machine-learning-project-for-house-price-prediction
+2.	https://towardsdatascience.com/linear-regression-on-boston- housing-dataset-f409b7e4a155
+STEPS	Installing Jupyter notebook with python3
+
+1)	import the required libraries-
+numpy,matplotlib.pyplot,pandas,seaborn
+
+2)	Importing Data (kaggle and
+scikit-learn library) and Checking out
+
+3)	Exploratory Data Analysis for House Price Prediction
+
+4)	Get Data Ready For Training a Linear Regression Model
+
+5)	Split Data into Train, Test
+
+6)	Creating and Training the LinearRegression Model
+
+7)	LinearRegression Model Evaluation
+
+8)	Predictions from our Linear Regression Model
+
+9)	Regression Evaluation Metrics.
+INSTRUCTIONS FOR WRITING JOURNAL	1.	Date
+2.	Assignment no.
+3.	Problem definition
+ 
+	4.	Learning objective
+5.	Learning Outcome
+6.	Concepts related Theory
+7.	Algorithm
+8.	Test cases
+9.	Conclusion/Analysis
+ 
+Prerequisites: Programming language, machine learning Concepts related Theory:
+Linear Regression is a Supervised Machine Learning Model for finding the relationship between independent variables and dependent variable. Linear regression performs the task to predict the response (dependent) variable value (y) based on a given (independent) explanatory variable (x). So, this regression technique finds out a linear relationship between x (input) and y (output).
+
+Algorithm:
+
+Import Libraries: Install the required libraries and setup for the environment for the assignment. importing SciKit-Learn, Pandas, Seaborn, Matplotlib and Numpy.
+
+
+Importing Data and Checking out: As data is in the CSV file, we will read the CSV using pandas read_csv function and check the first 5 rows of the data frame using head().
+ 
+ 
+
+Exploratory Data Analysis for House Price Prediction : create some simple plot for visualizing the data.
+ 
+ 
+ 
+ 
+
+Get Data Ready For Training a Linear Regression Model: now begin to train out the regression model. We will need to first split up our data into an X list that contains the features to train on, and a y list with the target variable, in this case, the Price column. We will ignore the Address column because it only has text which is not useful for linear regression modeling.
+
+
+
+Split Data into Train, Test: Now split our dataset into a training set and testing set using sklearn train_test_split(). The training set will be used for training the model and testing set for testing the model. We are creating a split of 40% training data and 60% of the training set.
+ 
+ 
+X_train and y_train contain data for the training model. X_test and y_test contain data for the testing model. X and y are features and target variable names.
+
+Creating and Training the LinearRegression Model: import and create sklearn linear_model LinearRegression object and fit the training dataset in it.
+
+
+
+LinearRegression Model Evaluation: Now let’s evaluate the model by checking out its coefficients and how we can interpret them
+ 
+ 
+
+
+
+Predictions from our Linear Regression Model: Let’s find out the predictions of our test set and see how well it performs.
+ 
+ 
+In the above scatter plot, we see data is in a line form, which means our model has done good predictions.
+
+Regression Evaluation Metrics:Here are three common evaluation metrics for regression problems:
+ 
+ 
+
+Conclusion-We have analyzed a Linear Regression Model which we help the real estate agent for estimating the house price.
+
+Review Questions:
+1)	Difference between machine learning and deep learning?
+
+2)	How is linear regression used in house price prediction?
+
+3)	What is the purpose of house price prediction?
+
+4)	What is a Linear Regression?
+
+5)	What is the primary difference between R square and adjusted R square?
+
+6)	List out the formulas to find RMSE and MSE?
+
+7)	What are the disadvantages of the linear regression model?
+
+8)	Name a possible method of improving the accuracy of a linear regression model?
