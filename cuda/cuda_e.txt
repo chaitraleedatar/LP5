@@ -40,6 +40,35 @@ nvcc fileName.cu -o outputFileName
 Please note that the code assumes the availability of the CUDA toolkit and a compatible GPU device. Ensure that you have the necessary dependencies and a compatible CUDA-enabled GPU to compile and run the code successfully.
 
 
+This is a C++ code that performs matrix multiplication using both CPU and GPU. It multiplies two matrices, `A` and `B`, and stores the result in matrix `C`. The code uses CUDA to offload the matrix multiplication computation to the GPU.
+
+Here's a breakdown of the code:
+
+1. The code includes the necessary headers and defines a constant `BLOCK_SIZE`.
+2. The `initialize_matrix` function is used to initialize a matrix with random values.
+3. The `print_matrix` function is used to print a matrix.
+4. The `matrix_multiplication_cpu` function performs matrix multiplication on the CPU. It uses three nested loops to compute the dot product of each element in the resulting matrix `C`.
+5. The `matrix_multiply` function is the GPU kernel that performs matrix multiplication on the GPU. Each thread in the GPU is responsible for computing one element in the resulting matrix `C`. The function uses thread indices and block indices to determine the current element being computed.
+6. In the `main` function, the user is prompted to enter the dimensions of the matrices.
+7. Memory is allocated for matrices `A`, `B`, and `C` using dynamic memory allocation.
+8. The matrices `A` and `B` are initialized with random values.
+9. Memory is allocated on the GPU for matrices `m1`, `m2`, and `result` using `cudaMallocManaged`.
+10. The matrices `A` and `B` are copied from the host (CPU) to the device (GPU) using `cudaMemcpy`.
+11. The GPU grid and block dimensions are calculated based on the dimensions of matrix `C` and `BLOCK_SIZE`.
+12. CUDA events are created to measure the GPU execution time.
+13. The matrix multiplication is performed on the GPU using the `matrix_multiply` kernel.
+14. The GPU execution time is measured using the CUDA events.
+15. The result matrix `C` is copied from the device to the host using `cudaMemcpy`.
+16. The GPU result is printed using the `print_matrix` function.
+17. The CPU matrix multiplication is performed using the `matrix_multiplication_cpu` function.
+18. The CPU execution time is measured using CUDA events.
+19. The CPU result is printed using the `print_matrix` function.
+20. Memory allocated on the GPU is freed using `cudaFree`.
+21. The program terminates.
+
+Please note that the code assumes that you have the necessary CUDA development environment set up and configured correctly.
+
+
 
 To write a CUDA program for addition of two large vectors and matrix multiplication, you will need the following knowledge:
 
