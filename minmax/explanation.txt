@@ -1,0 +1,51 @@
+The given code is an example of parallel reduction using OpenMP. It calculates the minimum, maximum, sum, and average of an array of integers. Here's a breakdown of how the code works:
+
+1. The code starts by including the necessary headers, `<bits/stdc++.h>` and `<omp.h>`, which provide various standard libraries and OpenMP functionalities.
+
+2. Four functions are defined: `minimum`, `maximum`, `sum`, and `avg`. Each function takes a vector of integers as input and performs a specific operation.
+
+3. The `minimum` function finds the minimum element in the array using a sequential loop and then performs the same operation using OpenMP parallel reduction.
+
+4. The `maximum` function finds the maximum element in the array using a sequential loop and then performs the same operation using OpenMP parallel reduction.
+
+5. The `sum` function calculates the sum of all elements in the array using a sequential loop and then performs the same operation using OpenMP parallel reduction.
+
+6. The `avg` function calculates the average of all elements in the array using a sequential loop and then performs the same operation using OpenMP parallel reduction.
+
+7. In the `main` function, the user is prompted to enter the number of elements in the array.
+
+8. An array of integers is created and initialized with random values using the `rand()` function.
+
+9. The array is displayed on the console.
+
+10. The `minimum`, `maximum`, `sum`, and `avg` functions are called with the array as the argument.
+
+11. Finally, the program terminates, and the output is displayed on the console.
+
+To compile and run the code, you can use the following commands in the terminal:
+
+```
+g++ -fopenmp assignment3.cpp -o assignment3
+./assignment3
+```
+
+Please note that the code assumes the availability of the OpenMP library and uses some C++11 features. Make sure you have the necessary dependencies and a compatible compiler to compile and run the code successfully.
+
+
+
+
+To implement parallel reduction using OpenMP for operations such as finding the minimum, maximum, sum, and average of an array, you need to have a basic understanding of the following concepts:
+
+1. OpenMP: OpenMP (Open Multi-Processing) is an API (Application Programming Interface) that provides a set of compiler directives, library routines, and environment variables for parallel programming in shared-memory systems. It allows you to parallelize certain sections of your code to take advantage of multiple threads and processors.
+
+2. Parallel Reduction: Parallel reduction is a technique used to combine the results of partial computations performed by multiple threads into a single result. It is commonly used for operations like finding the minimum, maximum, sum, or average of an array. Each thread performs the operation on a subset of the data, and then the results are combined using a reduction operation.
+
+3. Compiler Directives: OpenMP provides several compiler directives that allow you to specify the parallelism and synchronization behavior of your code. The most commonly used directive for parallel reduction is `#pragma omp parallel for reduction(<operator>: <variable>)`, where `<operator>` is the reduction operation (e.g., `min`, `max`, `+` for sum) and `<variable>` is the variable that stores the final result.
+
+4. `reduction` Clause: The `reduction` clause in the OpenMP directive specifies the reduction operation and the variable to store the result. It automatically generates the necessary code to combine the partial results from each thread into a single result. The `reduction` clause supports various operators such as `min`, `max`, `+`, `-`, `*`, `&`, `|`, `^`, `&&`, and `||`.
+
+5. Loop Parallelism: OpenMP provides the `#pragma omp parallel for` directive to parallelize loops. It distributes loop iterations among the available threads, allowing multiple iterations to be executed simultaneously. The `parallel for` directive can be combined with the `reduction` clause to perform parallel reduction within a loop.
+
+6. Thread Safety: When parallelizing code, it's important to consider thread safety. Ensure that shared variables accessed by multiple threads are properly synchronized to avoid race conditions and data inconsistencies. In the case of parallel reduction, the `reduction` clause takes care of the necessary synchronization and ensures the correctness of the reduction operation.
+
+By understanding these concepts, you can effectively implement parallel reduction using OpenMP for operations like finding the minimum, maximum, sum, and average of an array. It allows you to take advantage of parallelism and leverage multiple threads and processors to perform computations more efficiently.

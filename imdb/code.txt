@@ -1,0 +1,128 @@
+import numpy as np
+import tensorflow as tf
+from tensorflow import keras
+from sklearn.metrics import confusion_matrix, classification_report
+import matplotlib.pyplot as plt
+
+
+# Load the IMDB dataset
+imdb = keras.datasets.imdb
+
+
+# Split the dataset into training and testing sets
+(train_data, train_labels), (test_data, test_labels) = imdb.load_data(num_words=10000)
+
+
+# Preprocess the data by padding the sequences
+train_data = keras.preprocessing.sequence.pad_sequences(train_data, value=0, padding='post', maxlen=256)
+test_data = keras.preprocessing.sequence.pad_sequences(test_data, value=0, padding='post', maxlen=256)
+
+
+# Define the model architecture
+model = keras.Sequential([
+    keras.layers.Embedding(10000, 16),
+    keras.layers.GlobalAveragePooling1D(),
+    keras.layers.Dense(16, activation='relu'),
+    keras.layers.Dense(1, activation='sigmoid')
+])
+
+
+# Compile the model
+model.compile(optimizer='adam', loss='binary_crossentropy', metrics=['accuracy'])
+
+
+# Train the model
+history = model.fit(train_data, train_labels, epochs=10, batch_size=512, validation_data=(test_data, test_labels))
+
+
+# Evaluate the model
+test_loss, test_acc = model.evaluate(test_data, test_labels)
+print('Test accuracy:', test_acc)
+
+
+# Make predictions on the testing data
+y_pred = np.round(model.predict(test_data)).flatten()
+
+# Generate the confusion matrix and classification report
+cm = confusion_matrix(test_labels, y_pred)
+report = classification_report(test_labels, y_pred)
+
+
+# Print the confusion matrix and classification report
+print("Confusion Matrix:\n", cm)
+print("Classification Report:\n", report)
+
+
+# Define the plot labels
+classes = ["Negative", "Positive"]
+
+# Plot the confusion matrix
+plt.imshow(cm, interpolation='nearest', cmap=plt.cm.Blues)
+plt.title("Confusion Matrix")
+plt.colorbar()
+tick_marks = np.arange(len(classes))
+plt.xticks(tick_marks, classes, rotation=45)
+plt.yticks(tick_marks, classes)
+thresh = cm.max() / 2.
+for i, j in np.ndindex(cm.shape):
+    plt.text(j, i, format(cm[i, j], 'd'), ha="center", va="center", color="white" if cm[i, j] > thresh else "black")
+plt.xlabel('Predicted label')
+plt.ylabel('True label')
+plt.tight_layout()
+plt.show()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+This code is an example of training a binary classification model on the IMDB movie review dataset and then evaluating the model's performance using a confusion matrix and a classification report. Let's go through it step by step:
+
+1. The code starts by importing the necessary libraries: `numpy` (as `np`), `tensorflow` (as `tf`), `keras`, `confusion_matrix`, `classification_report`, and `pyplot` from `matplotlib` (as `plt`).
+
+2. The IMDB dataset is loaded using the `keras.datasets.imdb` module. The dataset contains movie reviews and their corresponding sentiment labels.
+
+3. The dataset is split into training and testing sets using the `load_data` function. The `num_words` parameter limits the vocabulary size to the 10,000 most frequent words.
+
+4. The training and testing data sequences are preprocessed by padding the sequences using the `pad_sequences` function from `keras.preprocessing.sequence`. Padding ensures that all sequences have the same length by adding zeros at the end of shorter sequences.
+
+5. The model architecture is defined using the `Sequential` class from `keras`. It consists of an embedding layer, a global average pooling layer, a dense layer with ReLU activation, and a final dense layer with a sigmoid activation for binary classification.
+
+6. The model is compiled with the `compile` function, specifying the optimizer as 'adam', the loss function as 'binary_crossentropy' (suitable for binary classification), and including accuracy as a metric to evaluate during training.
+
+7. The model is trained on the training data using the `fit` function. The `epochs` parameter defines the number of training iterations, `batch_size` specifies the number of samples per gradient update, and `validation_data` is used to evaluate the model on the testing data after each epoch.
+
+8. The model is evaluated on the testing data using the `evaluate` function, which returns the test loss and test accuracy. The results are printed to the console.
+
+9. Predictions are made on the testing data using the trained model, and the predicted labels are rounded and flattened to convert them into binary values.
+
+10. The confusion matrix is calculated using the `confusion_matrix` function from `sklearn.metrics`, which takes the true labels (`test_labels`) and the predicted labels (`y_pred`) as inputs.
+
+11. The classification report is generated using the `classification_report` function from `sklearn.metrics`, which provides various performance metrics such as precision, recall, and F1-score for each class.
+
+12. The confusion matrix and classification report are printed to the console.
+
+13. The code proceeds to plot the confusion matrix using `imshow` from `pyplot`. It sets the color map to 'Blues' and displays the matrix as an image.
+
+14. Various plot settings are defined, such as the title, color bar, tick marks, and labels.
+
+15. The confusion matrix values are displayed as text within each cell, with the color of the text determined by a threshold value (`thresh`) that is half of the maximum value in the confusion matrix.
+
+16. The x-axis is labeled as "Predicted label", the y-axis as "True label", and the plot is shown using `show()`.
+
+That's a walkthrough of the provided code. If you have any further questions, feel free to ask!
+
+

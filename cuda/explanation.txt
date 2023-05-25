@@ -1,0 +1,116 @@
+The given code demonstrates vector addition using both CPU and GPU implementations in CUDA. Here's a breakdown of how the code works:
+
+1. The necessary headers are included, including `<bits/stdc++.h>`, `<cuda.h>`, and a preprocessor definition `BLOCK_SIZE` set to 64.
+
+2. Two functions are defined: `cpu_add` and `gpu_add`. `cpu_add` performs vector addition on the CPU, while `gpu_add` performs vector addition on the GPU using CUDA.
+
+3. The `print_vec` function is defined to print the elements of a vector.
+
+4. In the `main` function, host and device memory pointers are declared: `a_cpu`, `b_cpu`, `res_cpu`, `a_gpu`, `b_gpu`, `res_gpu`, and `copy`. `a_cpu`, `b_cpu`, and `res_cpu` are host (CPU) arrays, while `a_gpu`, `b_gpu`, and `res_gpu` are device (GPU) arrays. `copy` is used to copy the GPU result back to the CPU.
+
+5. The number of elements (`n`) is set to 2^4 (16).
+
+6. Memory is allocated on the GPU using `cudaMalloc`, and random values are assigned to `a_cpu` and `b_cpu`.
+
+7. The `print_vec` function is used to print the contents of `a_cpu` and `b_cpu`.
+
+8. CUDA events (`start` and `stop`) are created to measure the elapsed time for CPU and GPU operations.
+
+9. The CPU vector addition is performed using the `cpu_add` function, and the elapsed time is recorded.
+
+10. The GPU block and thread configuration is determined, and the GPU vector addition is performed using the `gpu_add` kernel. The elapsed time is recorded.
+
+11. The result from the GPU is copied back to the CPU using `cudaMemcpy`.
+
+12. The GPU and CPU results are printed using the `print_vec` function.
+
+13. The elapsed times for the CPU and GPU operations are printed.
+
+14. Memory allocated on the GPU is freed using `cudaFree`.
+
+15. The program terminates, and the output is displayed on the console.
+
+To compile and run the code, you can use the following commands in the terminal:
+
+```
+nvcc fileName.cu -o outputFileName
+./outputFileName
+```
+
+Please note that the code assumes the availability of the CUDA toolkit and a compatible GPU device. Ensure that you have the necessary dependencies and a compatible CUDA-enabled GPU to compile and run the code successfully.
+
+
+
+To write a CUDA program for addition of two large vectors and matrix multiplication, you will need the following knowledge:
+
+1. CUDA Programming Model:
+   - CUDA is a parallel computing platform and programming model that allows developers to use NVIDIA GPUs for general-purpose computing.
+   - The programming model consists of host code (executed on the CPU) and device code (executed on the GPU).
+   - The host code manages data transfer between the CPU and GPU, launches kernel functions on the GPU, and performs other CPU-specific tasks.
+   - The device code, written in CUDA C/C++, is executed in parallel on the GPU by multiple threads.
+
+2. Kernel Functions:
+   - Kernel functions are the entry points for GPU execution in CUDA programs.
+   - They are written in CUDA C/C++ and are executed in parallel by multiple threads.
+   - Each thread executes the same code but operates on different data elements.
+   - Kernel functions are defined with the `__global__` qualifier and can be called from the host code.
+
+3. Thread Hierarchy:
+   - CUDA organizes threads into a hierarchy of blocks and grids.
+   - Blocks are groups of threads that can cooperate and synchronize using shared memory.
+   - Blocks are organized into a grid, which is a collection of blocks.
+   - The block and grid dimensions determine the total number of threads and how they are mapped to the GPU's processing units.
+
+4. Memory Management:
+   - CUDA provides different memory spaces: global memory, shared memory, constant memory, and local memory.
+   - Global memory is accessible by all threads and has high capacity but high latency.
+   - Shared memory is shared by threads within a block and has low latency, making it suitable for inter-thread communication.
+   - Constant memory is read-only and optimized for broadcasting constant data to all threads.
+   - Local memory is private to each thread and used for storing local variables.
+
+5. Data Transfer:
+   - Data transfer between the CPU and GPU is performed explicitly using CUDA APIs.
+   - Memory allocation and deallocation on the GPU are done using functions like `cudaMalloc()` and `cudaFree()`.
+   - Data is transferred between the host and device using `cudaMemcpy()`.
+
+Parallel computing using CUDA leverages the massively parallel architecture of GPUs to perform computations faster than traditional CPUs. It allows you to harness the power of multiple GPU threads executing in parallel to accelerate data-intensive tasks. CUDA programming requires knowledge of the CUDA programming model, kernel functions, thread hierarchy, memory management, and data transfer techniques. By utilizing CUDA, you can achieve significant speedup for computationally intensive tasks such as vector addition and matrix multiplication by distributing the workload across thousands of GPU threads.
+
+
+
+For implementing addition of two large vectors and matrix multiplication using CUDA, you need to understand the following concepts:
+
+1. Vector Addition:
+   - The vector addition operation involves adding corresponding elements of two vectors to produce a third vector.
+   - In CUDA, you can assign each thread to perform the addition operation on a single element of the vectors.
+   - The total number of threads required is equal to the size of the vectors.
+   - The vectors can be stored in global memory, and each thread can access the elements using its unique thread index.
+
+2. Matrix Multiplication:
+   - Matrix multiplication is a fundamental operation that involves multiplying elements of two matrices to produce a resulting matrix.
+   - In CUDA, matrix multiplication can be efficiently parallelized using a technique called "tiling" or "block-wise multiplication."
+   - The matrices are divided into smaller blocks, and each block is assigned to a block of threads.
+   - Each thread block performs the multiplication of submatrices and accumulates the results into a resulting submatrix.
+   - Shared memory can be used to store the blocks for faster memory access and reduction of global memory accesses.
+   - Synchronization between threads may be required to ensure correct computation of the matrix multiplication.
+
+3. Grid and Block Dimensions:
+   - The total number of threads required for vector addition or matrix multiplication can be determined based on the size of the vectors or matrices.
+   - The number of threads per block and the number of blocks in a grid need to be chosen appropriately.
+   - The block dimensions and grid dimensions are specified when launching the CUDA kernel.
+   - The thread indices can be used to access the corresponding elements of the vectors or matrices.
+
+4. Memory Access Optimization:
+   - Efficient memory access is crucial for achieving high performance in CUDA programs.
+   - Global memory accesses can be coalesced to maximize memory bandwidth.
+   - Shared memory can be used to reduce global memory accesses and exploit data reuse within a thread block.
+   - Proper memory access patterns and memory layout can improve the memory access efficiency.
+
+5. Kernel Launch and Data Transfer:
+   - The host code needs to allocate memory for the vectors or matrices on the GPU using `cudaMalloc()`.
+   - The data from the host needs to be transferred to the device memory using `cudaMemcpy()`.
+   - The CUDA kernel for vector addition or matrix multiplication is launched with appropriate block and grid dimensions.
+   - After the kernel execution, the result can be transferred back to the host using `cudaMemcpy()`.
+
+By understanding these concepts and applying them in your CUDA program, you can efficiently perform the addition of two large vectors and matrix multiplication using the power of parallel processing on GPUs.
+
+

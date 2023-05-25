@@ -1,0 +1,34 @@
+1) Difference between machine learning and deep learning:
+Machine learning is a subset of artificial intelligence that focuses on developing algorithms and models that can learn from data and make predictions or decisions without being explicitly programmed. It involves the use of statistical techniques to train models on data and make predictions.
+
+Deep learning, on the other hand, is a subfield of machine learning that specifically deals with neural networks consisting of multiple layers. It aims to mimic the structure and function of the human brain by creating complex networks capable of learning hierarchical representations of data. Deep learning models can automatically learn features from raw data and have achieved remarkable success in areas like image recognition, natural language processing, and speech recognition.
+
+2) How is linear regression used in house price prediction?
+Linear regression is commonly used in house price prediction as it can establish a relationship between the independent variables (e.g., area, number of rooms, location) and the dependent variable (house price). By fitting a linear regression model to a dataset of historical house prices and corresponding features, the model can learn the coefficients that represent the impact of each independent variable on the house price. Once trained, the model can then be used to predict house prices based on the given set of features.
+
+3) What is the purpose of house price prediction?
+The purpose of house price prediction is to estimate the value of a residential property based on various factors or features associated with the property. It helps buyers, sellers, and real estate professionals make informed decisions regarding pricing, investment opportunities, and market trends. House price prediction models can provide valuable insights into the factors influencing property prices and assist in determining fair market values.
+
+4) What is Linear Regression?
+Linear regression is a statistical modeling technique used to establish a linear relationship between a dependent variable and one or more independent variables. It assumes that the relationship between the variables can be approximated by a straight line. The goal of linear regression is to find the best-fitting line that minimizes the difference between the predicted values and the actual values of the dependent variable. This line can then be used to make predictions based on the given independent variables.
+
+5) What is the primary difference between R-squared and adjusted R-squared?
+R-squared (coefficient of determination) is a statistical measure that represents the proportion of the variance in the dependent variable that can be explained by the independent variables in a regression model. It ranges from 0 to 1, where 1 indicates a perfect fit.
+
+Adjusted R-squared adjusts the R-squared value by taking into account the number of independent variables and the sample size. It penalizes the addition of unnecessary variables that do not significantly improve the model's performance. Adjusted R-squared provides a more accurate measure of the model's goodness of fit when comparing models with different numbers of independent variables.
+
+6) Formulas to find RMSE (Root Mean Squared Error) and MSE (Mean Squared Error):
+RMSE: RMSE is the square root of the average of the squared differences between the predicted and actual values.
+
+RMSE = sqrt((1/n) * Σ(y_pred - y_actual)^2)
+
+MSE: MSE is the average of the squared differences between the predicted and actual values.
+
+MSE = (1/n) * Σ(y_pred - y_actual)^2
+
+where y_pred represents the predicted values and y_actual represents the actual values, and n is the number of data points.
+
+7) Disadvantages of the linear regression model:
+- Linear regression assumes a linear relationship between the dependent variable and independent variables, which may not always hold true in real-world scenarios.
+- It is sensitive to outliers, meaning that extreme values can heavily influence the regression line.
+- Linear regression assumes that the error terms are normally distributed and have constant variance (homoscedasticity), which may not always be
