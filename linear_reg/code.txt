@@ -1,0 +1,118 @@
+import numpy as np
+import pandas as pd
+import tensorflow as tf
+from sklearn.model_selection import train_test_split
+from sklearn.preprocessing import StandardScaler
+
+
+# Load the Boston Housing Price dataset
+data = pd.read_csv('housing.csv')
+
+
+data.info()
+
+
+# Split the data into training and testing sets
+X_train, X_test, y_train, y_test = train_test_split(data.iloc[:,:-1], data.iloc[:,-1], 
+                                                    test_size=0.2, random_state=0)
+
+
+# Normalize the training and testing data
+scaler = StandardScaler()
+X_train = scaler.fit_transform(X_train)
+X_test = scaler.transform(X_test)
+
+
+# Convert the training and testing data into tensors
+X_train = tf.convert_to_tensor(X_train, dtype=tf.float32)
+y_train = tf.convert_to_tensor(y_train, dtype=tf.float32)
+X_test = tf.convert_to_tensor(X_test, dtype=tf.float32)
+y_test = tf.convert_to_tensor(y_test, dtype=tf.float32)
+
+
+# Create the neural network model
+model = tf.keras.Sequential([
+    tf.keras.layers.Dense(units=64, activation='relu', input_shape=(X_train.shape[1],)),
+    tf.keras.layers.Dense(units=64, activation='relu'),
+    tf.keras.layers.Dense(units=1)
+])
+
+
+# Compile the model
+model.compile(optimizer='adam', loss='mean_squared_error')
+
+
+# Train the model
+model.fit(X_train, y_train, epochs=300)
+
+
+# Evaluate the model on the test data
+test_loss = model.evaluate(X_test, y_test)
+
+
+# Print the test loss
+print("Test Loss:", test_loss)
+
+
+from sklearn.metrics import mean_absolute_error, mean_squared_error
+
+y_pred = model.predict(X_test)
+mae = mean_absolute_error(y_test, y_pred)
+mse = mean_squared_error(y_test, y_pred)
+rmse = np.sqrt(mse)
+
+print("Mean Absolute Error:", mae)
+print("Mean Squared Error:", mse)
+print("Root Mean Squared Error:", rmse)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Certainly! Let's go through the code step by step:
+
+1. The code starts by importing the necessary libraries: `numpy` (as `np`), `pandas` (as `pd`), and `tensorflow` (as `tf`). It also imports specific functions from the `sklearn` library for data preprocessing and model evaluation.
+
+2. The next line loads a dataset called the Boston Housing Price dataset from a CSV file named "housing.csv" and stores it in a Pandas DataFrame called `data`.
+
+3. The `data.info()` function is used to display information about the dataset, such as the number of rows, columns, and data types of each column.
+
+4. The dataset is then split into training and testing sets using the `train_test_split` function from `sklearn.model_selection`. The features (input variables) are stored in `X_train` and `X_test`, and the target variable (output) is stored in `y_train` and `y_test`. The split is done with a test size of 20% and a random state of 0 for reproducibility.
+
+5. The next step involves normalizing the training and testing data. The `StandardScaler` from `sklearn.preprocessing` is used to scale the features so that they have zero mean and unit variance. This is important for many machine learning algorithms to work effectively.
+
+6. The normalized training and testing data are converted into TensorFlow tensors using the `tf.convert_to_tensor` function. Tensors are multi-dimensional arrays that TensorFlow uses to store and manipulate data efficiently.
+
+7. A neural network model is created using the `Sequential` class from `tf.keras`. This model consists of three layers: two dense (fully connected) layers with 64 units and ReLU activation functions, followed by a single output layer with no activation function.
+
+8. The model is compiled using the `compile` function, specifying the optimizer as "adam" and the loss function as "mean_squared_error". The optimizer controls the update rules for the model's weights during training, and the loss function measures how well the model performs during training by comparing its predictions to the actual target values.
+
+9. The model is then trained on the training data using the `fit` function, specifying the number of epochs (iterations over the training data) as 300.
+
+10. After training, the model's performance is evaluated on the test data using the `evaluate` function, which calculates the loss value on the test set.
+
+11. The test loss is printed to the console using the `print` function.
+
+12. Next, additional evaluation metrics are calculated using functions from `sklearn.metrics`. The model's predictions for the test data (`y_pred`) are obtained using the `predict` method of the model.
+
+13. The mean absolute error (`mae`), mean squared error (`mse`), and root mean squared error (`rmse`) are calculated using the corresponding functions from `sklearn.metrics`.
+
+14. Finally, the calculated evaluation metrics (MAE, MSE, and RMSE) are printed to the console using the `print` function.
+
+That's a walkthrough of the provided code. Let me know if you have any further questions!
