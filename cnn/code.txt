@@ -95,3 +95,72 @@ Sure! Let's go through the code step by step:
 8. The model is trained on the training data using `fit`. The `epochs` parameter defines the number of training iterations, `batch_size` specifies the number of samples per gradient update, and `validation_split` is used to evaluate the model on a fraction (10%) of the training data during training.
 
 That's a walkthrough of the provided code. Let me know if you have any further questions!
+
+
+One-hot encoding is a technique used to represent categorical variables as binary vectors. In one-hot encoding, each category or label is converted into a binary vector where all elements are zero except for the index that corresponds to the category, which is set to one. This binary vector representation allows categorical variables to be used as input for machine learning algorithms that expect numerical inputs.
+
+To convert labels into one-hot encoded vectors, you can follow these steps:
+
+1. Identify the distinct categories or labels in your dataset.
+
+2. Assign a unique index to each category. This index will correspond to the position of the element set to one in the one-hot encoded vector.
+
+3. Create an array or matrix to store the one-hot encoded vectors. The dimensions of this array will be the number of samples (data points) by the number of distinct categories.
+
+4. For each label, create a corresponding one-hot encoded vector. Set the element at the index corresponding to the label's category to one, and set all other elements to zero.
+
+Here's an example to illustrate the process:
+
+Suppose you have three labels: "red", "green", and "blue". Assign the indices as follows: "red" -> 0, "green" -> 1, "blue" -> 2.
+
+- Original labels: ["red", "green", "blue", "red", "blue"]
+- One-hot encoded vectors:
+
+  - "red" -> [1, 0, 0]
+  - "green" -> [0, 1, 0]
+  - "blue" -> [0, 0, 1]
+  - "red" -> [1, 0, 0]
+  - "blue" -> [0, 0, 1]
+
+You can use various programming libraries or functions to perform one-hot encoding, such as scikit-learn in Python (`OneHotEncoder`), TensorFlow (`tf.one_hot`), or PyTorch (`torch.nn.functional.one_hot`), among others. These libraries provide convenient functions that handle the conversion of labels into one-hot encoded vectors for you.
+
+
+The categorical cross-entropy loss function, also known as softmax cross-entropy loss, is commonly used in multi-class classification problems. It measures the dissimilarity or error between predicted class probabilities and the true class labels.
+
+Here's how the categorical cross-entropy loss function works:
+
+1. First, the predicted probabilities for each class are computed using a softmax activation function. The softmax function takes a vector of real numbers (logits) and normalizes them to represent probabilities that sum up to 1. This step ensures that the predicted values are valid probabilities.
+
+2. The true class labels are typically represented as one-hot encoded vectors. Each element in the one-hot encoded vector corresponds to a class, and the element with a value of 1 represents the true class.
+
+3. The categorical cross-entropy loss function compares the predicted probabilities with the true class labels. It calculates the error between the predicted probabilities and the true class labels by summing the negative logarithm of the predicted probabilities for the true classes.
+
+4. The final loss value is the average or sum of the individual errors across all the samples in the dataset. The goal is to minimize this loss function during the training process.
+
+The categorical cross-entropy loss function encourages the model to assign high probabilities to the correct class and lower probabilities to incorrect classes. It penalizes larger errors more heavily, pushing the model towards more accurate predictions.
+
+The formula for categorical cross-entropy loss is as follows:
+
+L = - ∑(y_true * log(y_pred))
+
+where:
+- L is the categorical cross-entropy loss.
+- y_true is the true class labels (one-hot encoded vectors).
+- y_pred is the predicted probabilities for each class.
+
+Many deep learning frameworks and libraries provide implementations of the categorical cross-entropy loss function as part of their neural network libraries, making it easy to use during the model training process.
+
+
+CNN models are often built using multiple layers to capture and extract hierarchical features from input data. The main reasons for using multiple layers in a CNN are as follows:
+
+1. **Local feature extraction**: The early layers of a CNN, such as convolutional and pooling layers, are responsible for capturing local features within the input data. These layers use small filters to scan the input and learn local patterns, edges, and textures. By stacking multiple layers, the model can progressively learn more complex and abstract features by combining the local features learned at each layer.
+
+2. **Hierarchical representation**: CNNs are designed to learn hierarchical representations of the input data. Deeper layers of the network learn to combine lower-level features to form higher-level representations. Each layer can be seen as learning and abstracting different levels of features, starting from simple low-level features (e.g., edges) and progressing to more complex high-level features (e.g., shapes, objects). This hierarchical representation allows the model to understand the input data at different levels of abstraction.
+
+3. **Translation invariance**: CNNs leverage shared weights and local receptive fields, which provide translation invariance to the learned features. This means that the learned features can detect patterns regardless of their position in the input. By stacking multiple convolutional layers, the model can capture and encode translation-invariant features more effectively.
+
+4. **Non-linear transformations**: CNNs typically include non-linear activation functions (e.g., ReLU) after each convolutional layer. These non-linearities introduce non-linear transformations to the learned features, enabling the model to capture complex and non-linear relationships in the data. Multiple layers with non-linear activations allow the model to learn increasingly complex representations.
+
+5. **Model capacity and expressiveness**: Deep CNNs with multiple layers have higher model capacity and expressiveness, meaning they can learn more intricate and fine-grained patterns. Deep networks are capable of capturing subtle details and variations in the input data, which can be crucial for tasks such as image classification, object detection, and semantic segmentation.
+
+While CNNs with many layers can be powerful, it is essential to strike a balance between model complexity and overfitting. Adding more layers increases the model's capacity but also makes it prone to overfitting if the training data is limited. The number of layers in a CNN model is often determined through experimentation and empirical analysis to achieve the desired performance on the given task.

@@ -32,6 +32,28 @@ g++ -fopenmp assignment3.cpp -o assignment3
 Please note that the code assumes the availability of the OpenMP library and uses some C++11 features. Make sure you have the necessary dependencies and a compatible compiler to compile and run the code successfully.
 
 
+`#include <omp.h>` is an include directive that allows the code to use OpenMP, a library for parallel programming.
+
+The line `cout << "Time taken = " << chrono::duration_cast<chrono::microseconds>(end - start).count() << " microseconds" << endl;` is used to print the time taken to perform a specific operation. It calculates the duration between the `start` and `end` points in the code and converts it to microseconds using the `chrono::duration_cast` function. The resulting time duration is then printed to the console.
+
+Parallel reduction is a technique used in parallel programming to compute a reduction operation (such as finding the sum, maximum, minimum, etc.) on a set of data in parallel. It involves dividing the data among multiple threads and performing partial reductions on each thread's subset of the data. Finally, the partial results are combined to obtain the final result.
+
+In the given code, `#pragma omp parallel for reduction(min : min_ele)` and `#pragma omp parallel for reduction(max : max_ele)` are OpenMP directives that enable parallelization and reduction operations. They distribute the iterations of the loop among multiple threads and perform the reduction operation (`min` or `max`) on the variable `min_ele` or `max_ele`, respectively. The final minimum and maximum values are obtained by combining the partial results from each thread. Similarly, `#pragma omp parallel for reduction(+ : sum)` is used to parallelize the sum operation, where each thread calculates a partial sum, and the final sum is obtained by adding the partial sums.
+
+
+The line `#pragma omp parallel for reduction(min : min_ele)` is an OpenMP directive used for parallelization and reduction in a `for` loop. Let's break it down:
+
+- `#pragma omp`: This is the OpenMP directive prefix that indicates the following line contains an OpenMP directive.
+- `parallel`: This keyword specifies that the enclosed block of code should be executed in parallel by multiple threads.
+- `for`: This keyword indicates that the parallel execution should be applied to a `for` loop.
+- `reduction(min : min_ele)`: This clause specifies the reduction operation to be performed and the variable involved. In this case, the reduction operation is `min` (minimum), and the variable to be reduced is `min_ele`.
+
+When the `#pragma omp parallel for reduction(min : min_ele)` directive is encountered, the loop iterations are divided among the available threads, and each thread performs its designated subset of iterations. Additionally, a private copy of the `min_ele` variable is created for each thread. Within each thread, the iterations are executed, and each thread independently calculates the minimum value of its assigned subset.
+
+After the loop completes, the partial results from each thread are combined using the `min` operation. The final minimum value is stored in the shared `min_ele` variable. Hence, at the end of the parallel region, `min_ele` will contain the minimum value from all iterations of the loop.
+
+It's important to note that the reduction variable (`min_ele` in this case) should be initialized appropriately before the parallel loop to ensure correct results.
+
 
 
 To implement parallel reduction using OpenMP for operations such as finding the minimum, maximum, sum, and average of an array, you need to have a basic understanding of the following concepts:
@@ -49,3 +71,23 @@ To implement parallel reduction using OpenMP for operations such as finding the 
 6. Thread Safety: When parallelizing code, it's important to consider thread safety. Ensure that shared variables accessed by multiple threads are properly synchronized to avoid race conditions and data inconsistencies. In the case of parallel reduction, the `reduction` clause takes care of the necessary synchronization and ensures the correctness of the reduction operation.
 
 By understanding these concepts, you can effectively implement parallel reduction using OpenMP for operations like finding the minimum, maximum, sum, and average of an array. It allows you to take advantage of parallelism and leverage multiple threads and processors to perform computations more efficiently.
+
+OpenMP (Open Multi-Processing) is an application programming interface (API) that supports shared-memory multiprocessing programming in C, C++, and Fortran. It provides a simple and portable way to write parallel programs that can take advantage of multiple processors or processor cores on a shared-memory computer system.
+
+Key features and concepts of OpenMP include:
+
+1. **Shared-memory Model:** OpenMP is based on a shared-memory model, where multiple threads of execution can access and manipulate shared data in memory. This allows for concurrent execution of parallel regions within a single program.
+
+2. **Directive-based Programming:** OpenMP uses compiler directives, which are special annotations in the source code, to indicate areas of the code that should be parallelized. These directives provide high-level guidance to the compiler about how to parallelize the code.
+
+3. **Parallel Regions:** OpenMP allows developers to define parallel regions, which are sections of code that can be executed by multiple threads concurrently. The `#pragma omp parallel` directive is used to create a parallel region, and the code within the region will be executed by multiple threads.
+
+4. **Work Sharing Constructs:** OpenMP provides work sharing constructs that distribute loop iterations or other work among the threads in a parallel region. The `#pragma omp for` directive is commonly used to parallelize loops, where each thread takes a portion of the loop iterations to execute.
+
+5. **Synchronization:** OpenMP provides mechanisms for synchronization between threads, such as barriers and critical sections. Barriers ensure that all threads reach a specific point in the code before proceeding, while critical sections protect shared data from concurrent access.
+
+6. **Runtime Library:** OpenMP implementations typically include a runtime library that manages the creation and synchronization of threads, as well as other runtime operations. The runtime library handles the dynamic creation and termination of threads and manages thread synchronization.
+
+7. **Portability:** OpenMP is designed to be portable across different platforms and architectures. It provides a standardized API, and most compilers support OpenMP directives, allowing developers to write parallel programs that can be executed on various systems without significant modifications.
+
+OpenMP is widely used for parallel programming tasks that can benefit from shared-memory multiprocessing, such as scientific simulations, numerical computations, image processing, and more. It offers a relatively easy-to-use approach to parallel programming and can significantly improve the performance of computationally intensive applications on multi-core systems.

@@ -87,3 +87,23 @@ To implement sequential and parallel Bubble Sort and Merge Sort algorithms using
    - It is important to understand how to use OpenMP directives correctly, handle thread synchronization, and control the number of threads.
 
 When implementing the sequential and parallel versions of Bubble Sort and Merge Sort using OpenMP, you will need to apply the concepts mentioned above. Care should be taken to ensure correct synchronization, prevent race conditions, and distribute the work effectively among multiple threads using OpenMP directives. Additionally, measuring the performance of the algorithms using time measurements can help evaluate the effectiveness of parallelization.
+
+OpenMP (Open Multi-Processing) is an application programming interface (API) that supports shared-memory multiprocessing programming in C, C++, and Fortran. It provides a simple and portable way to write parallel programs that can take advantage of multiple processors or processor cores on a shared-memory computer system.
+
+Key features and concepts of OpenMP include:
+
+1. **Shared-memory Model:** OpenMP is based on a shared-memory model, where multiple threads of execution can access and manipulate shared data in memory. This allows for concurrent execution of parallel regions within a single program.
+
+2. **Directive-based Programming:** OpenMP uses compiler directives, which are special annotations in the source code, to indicate areas of the code that should be parallelized. These directives provide high-level guidance to the compiler about how to parallelize the code.
+
+3. **Parallel Regions:** OpenMP allows developers to define parallel regions, which are sections of code that can be executed by multiple threads concurrently. The `#pragma omp parallel` directive is used to create a parallel region, and the code within the region will be executed by multiple threads.
+
+4. **Work Sharing Constructs:** OpenMP provides work sharing constructs that distribute loop iterations or other work among the threads in a parallel region. The `#pragma omp for` directive is commonly used to parallelize loops, where each thread takes a portion of the loop iterations to execute.
+
+5. **Synchronization:** OpenMP provides mechanisms for synchronization between threads, such as barriers and critical sections. Barriers ensure that all threads reach a specific point in the code before proceeding, while critical sections protect shared data from concurrent access.
+
+6. **Runtime Library:** OpenMP implementations typically include a runtime library that manages the creation and synchronization of threads, as well as other runtime operations. The runtime library handles the dynamic creation and termination of threads and manages thread synchronization.
+
+7. **Portability:** OpenMP is designed to be portable across different platforms and architectures. It provides a standardized API, and most compilers support OpenMP directives, allowing developers to write parallel programs that can be executed on various systems without significant modifications.
+
+OpenMP is widely used for parallel programming tasks that can benefit from shared-memory multiprocessing, such as scientific simulations, numerical computations, image processing, and more. It offers a relatively easy-to-use approach to parallel programming and can significantly improve the performance of computationally intensive applications on multi-core systems.
